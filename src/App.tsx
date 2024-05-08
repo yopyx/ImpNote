@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import NewNote from "./components/NewNote";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -7,7 +8,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/new",
-    element: <h1>Create new note</h1>,
+    element: <NewNote />,
     children: [],
   },
   {
@@ -26,12 +27,16 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <h1>HomePage**</h1>,
+    element: <h1>HomePage</h1>,
     children: [],
   },
 ]);
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <div className="m-20 text-xl">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
