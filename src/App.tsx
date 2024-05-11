@@ -1,5 +1,20 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NewNote from "./components/NewNote";
+
+export type Node = {
+  id: string;
+} & NodeData;
+
+export type NodeData = {
+  title: string;
+  body: string;
+  tags: Tag[];
+};
+export type Tag = {
+  label: string;
+  id: string;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
