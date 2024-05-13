@@ -1,13 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NewNote from "./components/NewNote";
 
-export type Node = {
+export type Note = {
   id: string;
-} & NodeData;
+} & NoteData;
 
-export type NodeData = {
+export type NoteData = {
   title: string;
-  body: string;
+  markdown: string;
   tags: Tag[];
 };
 export type Tag = {

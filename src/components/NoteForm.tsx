@@ -1,12 +1,22 @@
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactSelectCreatable from "react-select/creatable";
+import { NoteData, Tag } from "../App";
+type NoteFormProps = {
+  onSubmit: (data: NoteData) => void;
+};
 
-const NoteForm = () => {
+const NoteForm = ({ onSubmit }: NoteFormProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const handleSubmission = (e: FormEvent) => {
     e.preventDefault();
+    onSubmit({
+      title: titleRef.current!.value,
+      markdown: markdownRef.current!.value,
+      tags: [],
+    });
   };
   return (
     <form className="flex flex-col gap-y-10" onSubmit={handleSubmission}>
@@ -26,7 +36,20 @@ const NoteForm = () => {
           <label htmlFor="tags" className="font-semibold">
             Tags
           </label>
-          <ReactSelectCreatable isMulti />
+          <ReactSelectCreatable
+            //since the value of each tag is expected to be {label:...., value:....}
+            value={selectedTags.map((tag) => {
+              return { label: tag.label, value: tag.id };
+            })}
+            onChange={(tags) =>
+              setSelectedTags(
+                tags.map((tag) => {
+                  return { label: tag.label, id: tag.value };
+                })
+              )
+            }
+            isMulti
+          />
         </div>
       </div>
       <div className="flex flex-col gap-y-4">
