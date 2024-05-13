@@ -58,8 +58,9 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  const [notes, setNotes] = useLocalStorage<RawNoteData[]>("NOTES", []);
+  const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
   const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
+
   return (
     <div className="m-20 text-xl">
       <RouterProvider router={router} />
