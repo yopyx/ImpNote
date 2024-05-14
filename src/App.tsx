@@ -28,37 +28,6 @@ export type RawNoteData = {
   tagsIds: string[];
 };
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <h1>HomePage</h1>,
-    children: [],
-  },
-  {
-    path: "/new",
-    element: <NewNote />,
-    children: [],
-  },
-  {
-    path: "/:id",
-    children: [
-      {
-        index: true,
-        element: <h1>Current note</h1>,
-      },
-      {
-        path: "edit",
-        element: <h1>Edit the current note</h1>,
-        children: [],
-      },
-    ],
-  },
-  {
-    path: "*",
-    element: <h1>HomePage</h1>,
-    children: [],
-  },
-]);
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
   const [notesTags, setNotesTags] = useLocalStorage<Tag[]>("TAGS", []);
@@ -78,6 +47,37 @@ function App() {
     // ]);
   };
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <h1>HomePage</h1>,
+      children: [],
+    },
+    {
+      path: "/new",
+      element: <NewNote onSubmit={createNote} />,
+      children: [],
+    },
+    {
+      path: "/:id",
+      children: [
+        {
+          index: true,
+          element: <h1>Current note</h1>,
+        },
+        {
+          path: "edit",
+          element: <h1>Edit the current note</h1>,
+          children: [],
+        },
+      ],
+    },
+    {
+      path: "*",
+      element: <h1>HomePage</h1>,
+      children: [],
+    },
+  ]);
   return (
     <div className="m-20 text-xl">
       <RouterProvider router={router} />
