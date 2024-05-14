@@ -46,6 +46,9 @@ function App() {
     //   ...tags,
     // ]);
   };
+  const addNewTag = (tag: Tag) => {
+    setNotesTags((prev) => [...prev, tag]);
+  };
 
   const router = createBrowserRouter([
     {
@@ -55,7 +58,13 @@ function App() {
     },
     {
       path: "/new",
-      element: <NewNote onSubmit={createNote} />,
+      element: (
+        <NewNote
+          onSubmit={createNote}
+          addTag={addNewTag}
+          availableTags={notesTags}
+        />
+      ),
       children: [],
     },
     {

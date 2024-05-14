@@ -2,11 +2,14 @@ import { FormEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactSelectCreatable from "react-select/creatable";
 import { NoteData, Tag } from "../App";
+import { v4 as uuidv4 } from "uuid";
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
+  addTag: (tag: Tag) => void;
+  availableTags: Tag[];
 };
 
-const NoteForm = ({ onSubmit }: NoteFormProps) => {
+const NoteForm = ({ onSubmit, addTag, availableTags }: NoteFormProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -15,7 +18,7 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
     onSubmit({
       title: titleRef.current!.value,
       markdown: markdownRef.current!.value,
-      tags: [],
+      tags: selectedTags,
     });
   };
   return (
@@ -37,9 +40,19 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
             Tags
           </label>
           <ReactSelectCreatable
+            //onCreateOption is called whenever a new tag (Not a duplicate one) is added and onChange will not be called in this case
+            onCreateOption={(label) => {
+              const newTag = { id: uuidv4(), label };
+              setSelectedTags((t) => [...t, newTag]);
+              addTag(newTag);
+            }}
             //since the value of each tag is expected to be {label:...., value:....}
             value={selectedTags.map((tag) => {
               return { label: tag.label, value: tag.id };
+            })}
+            // options attribute takes an array of all available options of tags to select from
+            options={availableTags.map((t) => {
+              return { label: t.label, value: t.id };
             })}
             onChange={(tags) =>
               setSelectedTags(
