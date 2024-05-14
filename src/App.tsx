@@ -1,6 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NewNote from "./components/NewNote";
 import useLocalStorage from "./useLocalStorage";
+import { useMemo } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export type Note = {
   id: string;
@@ -59,7 +61,22 @@ const router = createBrowserRouter([
 ]);
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
-  const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
+  const [notesTags, setNotesTags] = useLocalStorage<Tag[]>("TAGS", []);
+  const notesWithTags = useMemo(() => {
+    // each note object is concatenated with tags which will contain labels updated
+    return notes.map((n) => {
+      return { ...n, tags: notesTags.filter((t) => n.tagsIds.includes(t.id)) };
+    });
+  }, [notes, notesTags]);
+
+  const createNote = ({ tags, ...data }: NoteData) => {
+    const tagsIds = tags.map((t) => t.id);
+    setNotes((prevNotes) => [...prevNotes, { id: uuidv4(), ...data, tagsIds }]);
+    // setNotesTags((notesTags) => [
+    //   ...notesTags.filter((t) => !tagsIds.includes(t.id)),
+    //   ...tags,
+    // ]);
+  };
 
   return (
     <div className="m-20 text-xl">
