@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tag } from "../App";
 import SelectCreatable from "react-select/creatable";
+import NoteCard from "./NoteCard";
 
 type SimplifiedNote = {
   id: string;
@@ -18,7 +19,7 @@ const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
   const filteredNotes = useMemo(() => {
-    simplifiedNotes.filter(
+    return simplifiedNotes.filter(
       (n) =>
         (title === "" || n.title.toLowerCase().includes(title.toLowerCase())) &&
         (selectedTags.length === 0 ||
@@ -81,6 +82,13 @@ const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
             isMulti
           />
         </div>
+      </div>
+      <div className="flex flex-wrap gap-6">
+        {filteredNotes.map((e) => (
+          <Link key={e.id} to={`/${e.id}`}>
+            <NoteCard title={e.title} tags={e.tags} />
+          </Link>
+        ))}
       </div>
     </div>
   );
