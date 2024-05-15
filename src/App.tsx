@@ -3,6 +3,7 @@ import NewNote from "./components/NewNote";
 import useLocalStorage from "./useLocalStorage";
 import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
+import NotesList from "./components/NotesList";
 
 export type Note = {
   id: string;
@@ -53,7 +54,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <h1>HomePage</h1>,
+      element: <NotesList availableTags={notesTags} />,
       children: [],
     },
     {
