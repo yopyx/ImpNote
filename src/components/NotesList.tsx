@@ -1,15 +1,30 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tag } from "../App";
 import SelectCreatable from "react-select/creatable";
 
-type NotesListProps = {
-  availableTags: Tag[];
+type SimplifiedNote = {
+  id: string;
+  title: string;
+  tags: Tag[];
 };
 
-const NotesList = ({ availableTags }: NotesListProps) => {
+type NotesListProps = {
+  availableTags: Tag[];
+  simplifiedNotes: SimplifiedNote[];
+};
+
+const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
+  const filteredNotes = useMemo(() => {
+    simplifiedNotes.filter(
+      (n) =>
+        (title === "" || n.title.toLowerCase().includes(title.toLowerCase())) &&
+        (selectedTags.length === 0 ||
+          selectedTags.every((t) => n.tags.some((nt) => nt.id === t.id)))
+    );
+  }, [title, selectedTags, simplifiedNotes]);
   return (
     <div className="flex flex-col gap-y-10">
       <div className="flex justify-between">

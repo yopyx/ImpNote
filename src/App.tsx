@@ -54,7 +54,14 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <NotesList availableTags={notesTags} />,
+      element: (
+        <NotesList
+          availableTags={notesTags}
+          simplifiedNotes={notesWithTags.map((n) => {
+            return { id: n.id, title: n.title, tags: n.tags };
+          })}
+        />
+      ),
       children: [],
     },
     {
