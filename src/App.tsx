@@ -4,6 +4,7 @@ import useLocalStorage from "./useLocalStorage";
 import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import NotesList from "./components/NotesList";
+import NoteLayout from "./components/NoteLayout";
 
 export type Note = {
   id: string;
@@ -77,14 +78,13 @@ function App() {
     },
     {
       path: "/:id",
+      element: <NoteLayout notes={notesWithTags} />,
       children: [
         {
           index: true,
-          element: <h1>Current note</h1>,
         },
         {
           path: "edit",
-          element: <h1>Edit the current note</h1>,
           children: [],
         },
       ],
