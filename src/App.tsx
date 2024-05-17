@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import NotesList from "./components/NotesList";
 import NoteLayout from "./components/NoteLayout";
+import Note from "./components/Note";
 
 export type Note = {
   id: string;
@@ -82,6 +83,7 @@ function App() {
       children: [
         {
           index: true,
+          element: <Note />,
         },
         {
           path: "edit",

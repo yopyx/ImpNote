@@ -1,6 +1,10 @@
-import { useParams } from "next/navigation";
 import { Note } from "../App";
-import { Navigate, Outlet, useOutletContext } from "react-router-dom";
+import {
+  Navigate,
+  Outlet,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 
 type NoteLayoutProps = {
   notes: Note[];
@@ -14,6 +18,7 @@ const NoteLayout = ({ notes }: NoteLayoutProps) => {
   }
   return <Outlet context={note} />;
 };
+//useNote function is used as a way to pass down the props of the Outlet component
 export function useNote() {
   return useOutletContext<Note>();
 }
