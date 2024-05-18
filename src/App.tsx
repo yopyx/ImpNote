@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import NotesList from "./components/NotesList";
 import NoteLayout from "./components/NoteLayout";
 import Note from "./components/Note";
+import EditNote from "./components/EditNote";
 
 export type Note = {
   id: string;
@@ -44,10 +45,18 @@ function App() {
   const createNote = ({ tags, ...data }: NoteData) => {
     const tagsIds = tags.map((t) => t.id);
     setNotes((prevNotes) => [...prevNotes, { id: uuidv4(), ...data, tagsIds }]);
-    // setNotesTags((notesTags) => [
-    //   ...notesTags.filter((t) => !tagsIds.includes(t.id)),
-    //   ...tags,
-    // ]);
+  };
+  const updateNote = (id: string, { tags, ...data }: NoteData) => {
+    const tagsIds = tags.map((t) => t.id);
+    setNotes((prevNotes) =>
+      prevNotes.map((n) => {
+        if (n.id === id) {
+          return { ...n, ...data, tagsIds };
+        } else {
+          return n;
+        }
+      })
+    );
   };
   const addNewTag = (tag: Tag) => {
     setNotesTags((prev) => [...prev, tag]);
@@ -87,6 +96,13 @@ function App() {
         },
         {
           path: "edit",
+          element: (
+            <EditNote
+              onSubmit={updateNote}
+              addTag={addNewTag}
+              availableTags={notesTags}
+            />
+          ),
           children: [],
         },
       ],
