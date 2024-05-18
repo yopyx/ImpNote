@@ -1,7 +1,7 @@
 import { Note } from "../App";
 import {
-  Navigate,
   Outlet,
+  useNavigate,
   useOutletContext,
   useParams,
 } from "react-router-dom";
@@ -12,9 +12,10 @@ type NoteLayoutProps = {
 
 const NoteLayout = ({ notes }: NoteLayoutProps) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const note = notes.find((n) => n.id === id);
-  if (note === null) {
-    <Navigate to={"/"} replace />;
+  if (!note) {
+    navigate("/");
   }
   return <Outlet context={note} />;
 };

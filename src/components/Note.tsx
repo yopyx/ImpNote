@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "./NoteLayout";
 import ReactMarkdown from "react-markdown";
-const Note = () => {
+
+type NoteProps = {
+  onDelete: (id: string) => void;
+};
+
+const Note = ({ onDelete }: NoteProps) => {
   const note = useNote();
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col gap-y-12">
       <div className="flex justify-between">
@@ -25,7 +31,13 @@ const Note = () => {
               Edit
             </button>
           </Link>
-          <button className="py-2 w-24 text-red-600 rounded-md bg-red-100 border-red-600 border-[1px] hover:bg-red-300">
+          <button
+            onClick={() => {
+              onDelete(note.id);
+              navigate("/");
+            }}
+            className="py-2 w-24 text-red-600 rounded-md bg-red-100 border-red-600 border-[1px] hover:bg-red-300"
+          >
             Delete
           </button>
           <Link to={"/"}>

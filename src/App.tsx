@@ -58,6 +58,9 @@ function App() {
       })
     );
   };
+  const deleteNote = (id: string) => {
+    setNotes((prevNotes) => prevNotes.filter((n) => n.id !== id));
+  };
   const addNewTag = (tag: Tag) => {
     setNotesTags((prev) => [...prev, tag]);
   };
@@ -89,10 +92,11 @@ function App() {
     {
       path: "/:id",
       element: <NoteLayout notes={notesWithTags} />,
+      errorElement: <h1>Error</h1>,
       children: [
         {
           index: true,
-          element: <Note />,
+          element: <Note onDelete={deleteNote} />,
         },
         {
           path: "edit",
@@ -109,7 +113,14 @@ function App() {
     },
     {
       path: "*",
-      element: <h1>HomePage</h1>,
+      element: (
+        <NotesList
+          availableTags={notesTags}
+          simplifiedNotes={notesWithTags.map((n) => {
+            return { id: n.id, title: n.title, tags: n.tags };
+          })}
+        />
+      ),
       children: [],
     },
   ]);
