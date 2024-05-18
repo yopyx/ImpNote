@@ -94,7 +94,7 @@ const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
           </Link>
         ))}
       </div>
-      {editModalIsOpen && <EditTagsModal />}
+      {editModalIsOpen && <EditTagsModal availableTags={availableTags} />}
     </div>
   );
 };
