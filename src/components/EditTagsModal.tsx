@@ -2,9 +2,21 @@ import { Tag } from "../App";
 
 type EditModalProps = {
   availableTags: Tag[];
+  closeModal: () => void;
+  onUpdateTag: (obj: TagsObj) => void;
+  onDeleteTag: (tagId: string) => void;
+};
+export type TagsObj = {
+  [id: string]: string;
 };
 
-const EditTagsModal = ({ availableTags }: EditModalProps) => {
+const EditTagsModal = ({
+  availableTags,
+  closeModal,
+  onUpdateTag,
+  onDeleteTag,
+}: EditModalProps) => {
+  const updatedTags: TagsObj = {};
   return (
     <div className="-m-20 absolute flex justify-center bg-black bg-opacity-45 w-screen h-screen">
       <div className="flex flex-col w-[700px] p-10 h-max rounded-lg bg-white my-auto gap-y-4">
@@ -19,8 +31,13 @@ const EditTagsModal = ({ availableTags }: EditModalProps) => {
                 type="text"
                 defaultValue={t.label}
                 className="outline-none"
+                onChange={(e) => (updatedTags[t.id] = e.target.value)}
+                required
               />
-              <button className="text-red-600 border-2 border-red-600 px-2 pb-1">
+              <button
+                className="text-red-600 border-2 border-red-600 px-2 pb-1"
+                onClick={() => onDeleteTag(t.id)}
+              >
                 x
               </button>
             </li>
@@ -30,12 +47,17 @@ const EditTagsModal = ({ availableTags }: EditModalProps) => {
           <button
             type="submit"
             className="py-1 w-20 rounded-md text-white bg-blue-700 hover:bg-blue-800"
+            onClick={() => {
+              onUpdateTag(updatedTags);
+              closeModal();
+            }}
           >
             Save
           </button>
           <button
             type="button"
             className="py-1 w-20 rounded-md bg-slate-200 border-stone-400 border-[1px] hover:bg-slate-300"
+            onClick={closeModal}
           >
             Cancel
           </button>

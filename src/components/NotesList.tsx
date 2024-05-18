@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Tag } from "../App";
 import SelectCreatable from "react-select/creatable";
 import NoteCard from "./NoteCard";
-import EditTagsModal from "./EditTagsModal";
+import EditTagsModal, { TagsObj } from "./EditTagsModal";
 
 type SimplifiedNote = {
   id: string;
@@ -14,9 +14,16 @@ type SimplifiedNote = {
 type NotesListProps = {
   availableTags: Tag[];
   simplifiedNotes: SimplifiedNote[];
+  onUpdateTag: (obj: TagsObj) => void;
+  onDeleteTag: (tagId: string) => void;
 };
 
-const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
+const NotesList = ({
+  availableTags,
+  simplifiedNotes,
+  onUpdateTag,
+  onDeleteTag,
+}: NotesListProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -94,7 +101,14 @@ const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
           </Link>
         ))}
       </div>
-      {editModalIsOpen && <EditTagsModal availableTags={availableTags} />}
+      {editModalIsOpen && (
+        <EditTagsModal
+          availableTags={availableTags}
+          closeModal={handleModalClosing}
+          onUpdateTag={onUpdateTag}
+          onDeleteTag={onDeleteTag}
+        />
+      )}
     </div>
   );
 };

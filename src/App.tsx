@@ -7,6 +7,7 @@ import NotesList from "./components/NotesList";
 import NoteLayout from "./components/NoteLayout";
 import Note from "./components/Note";
 import EditNote from "./components/EditNote";
+import { TagsObj } from "./components/EditTagsModal";
 
 export type Note = {
   id: string;
@@ -64,6 +65,14 @@ function App() {
   const addNewTag = (tag: Tag) => {
     setNotesTags((prev) => [...prev, tag]);
   };
+  const updateTag = (obj: TagsObj) => {
+    setNotesTags((prev) =>
+      prev.map((e) => (obj[e.id] ? { id: e.id, label: obj[e.id] } : e))
+    );
+  };
+  const deleteTag = (tagId: string) => {
+    setNotesTags((prev) => prev.filter((t) => t.id !== tagId));
+  };
 
   const router = createBrowserRouter([
     {
@@ -74,6 +83,8 @@ function App() {
           simplifiedNotes={notesWithTags.map((n) => {
             return { id: n.id, title: n.title, tags: n.tags };
           })}
+          onUpdateTag={updateTag}
+          onDeleteTag={deleteTag}
         />
       ),
       children: [],
@@ -113,14 +124,7 @@ function App() {
     },
     {
       path: "*",
-      element: (
-        <NotesList
-          availableTags={notesTags}
-          simplifiedNotes={notesWithTags.map((n) => {
-            return { id: n.id, title: n.title, tags: n.tags };
-          })}
-        />
-      ),
+      element: <div>wrong page</div>,
       children: [],
     },
   ]);
