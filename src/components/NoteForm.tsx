@@ -7,12 +7,19 @@ type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
   addTag: (tag: Tag) => void;
   availableTags: Tag[];
-};
+} & Partial<NoteData>;
 
-const NoteForm = ({ onSubmit, addTag, availableTags }: NoteFormProps) => {
+const NoteForm = ({
+  onSubmit,
+  addTag,
+  availableTags,
+  title = "",
+  markdown = "",
+  tags = [],
+}: NoteFormProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
   const navigate = useNavigate();
   const handleSubmission = (e: FormEvent) => {
     e.preventDefault();
@@ -35,6 +42,7 @@ const NoteForm = ({ onSubmit, addTag, availableTags }: NoteFormProps) => {
             ref={titleRef}
             className="outline p-1.5 rounded-sm outline-1 outline-gray-400"
             required
+            defaultValue={title}
           />
         </div>
         <div className="flex flex-1 flex-col gap-y-4">
@@ -76,6 +84,7 @@ const NoteForm = ({ onSubmit, addTag, availableTags }: NoteFormProps) => {
           className="outline p-1.5 rounded-sm outline-1 outline-gray-400"
           rows={15}
           required
+          defaultValue={markdown}
         />
       </div>
       <div className="flex justify-end gap-x-8">
