@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Tag } from "../App";
 import SelectCreatable from "react-select/creatable";
 import NoteCard from "./NoteCard";
+import EditTagsModal from "./EditTagsModal";
 
 type SimplifiedNote = {
   id: string;
@@ -18,6 +19,8 @@ type NotesListProps = {
 const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const handleModalClosing = () => setEditModalIsOpen(false);
   const filteredNotes = useMemo(() => {
     return simplifiedNotes.filter(
       (n) =>
@@ -42,6 +45,7 @@ const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
           <button
             type="button"
             className="py-2 w-24 rounded-md bg-slate-200 border-stone-400 border-[1px] hover:bg-slate-300"
+            onClick={() => setEditModalIsOpen(true)}
           >
             Edit tags
           </button>
@@ -90,6 +94,7 @@ const NotesList = ({ availableTags, simplifiedNotes }: NotesListProps) => {
           </Link>
         ))}
       </div>
+      {editModalIsOpen && <EditTagsModal />}
     </div>
   );
 };
