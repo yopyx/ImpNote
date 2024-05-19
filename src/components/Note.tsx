@@ -47,7 +47,7 @@ const Note = ({ onDelete }: NoteProps) => {
           </Link>
         </div>
       </div>
-      <ReactMarkdown>{note.markdown}</ReactMarkdown>
+      <ReactMarkdown className="p-8">{note.markdown}</ReactMarkdown>
     </div>
   );
 };

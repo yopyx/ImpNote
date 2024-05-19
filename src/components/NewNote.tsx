@@ -8,7 +8,7 @@ type NewNoteProps = {
 const NewNote = ({ onSubmit, addTag, availableTags }: NewNoteProps) => {
   return (
     <div className="flex flex-col gap-y-10">
-      <h1 className="text-4xl font-semibold">New Note</h1>
+      <h1 className="text-4xl font-semibold text-sky-500">New Note</h1>
       <NoteForm
         onSubmit={onSubmit}
         addTag={addTag}

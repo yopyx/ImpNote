@@ -39,7 +39,7 @@ const NotesList = ({
   return (
     <div className="flex flex-col gap-y-10">
       <div className="flex justify-between">
-        <h1 className="text-4xl font-semibold">Notes</h1>
+        <h1 className="text-5xl font-semibold text-sky-500"> Notes.</h1>
         <div className="flex justify-end gap-x-8">
           <Link to={"/new"}>
             <button

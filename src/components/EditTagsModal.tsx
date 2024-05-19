@@ -19,18 +19,18 @@ const EditTagsModal = ({
   const updatedTags: TagsObj = {};
   return (
     <div className="-m-20 absolute flex justify-center bg-black bg-opacity-45 w-screen h-screen">
-      <div className="flex flex-col w-[700px] p-10 h-max rounded-lg bg-white my-auto gap-y-4">
+      <div className="flex flex-col w-[700px] p-10 h-max rounded-lg bg-gradient-to-r from-gray-200 to-violet-300 my-auto gap-y-4">
         <h1 className="text-2xl">-Editing Tags-</h1>
         <ul className="flex flex-col gap-y-4">
           {availableTags.map((t) => (
             <li
               key={t.id}
-              className="flex font-semibold border-2 p-1 justify-between"
+              className="flex font-semibold border-2 p-1 justify-between bg-violet-200 shadow-md"
             >
               <input
                 type="text"
                 defaultValue={t.label}
-                className="outline-none"
+                className="outline-none bg-violet-200"
                 onChange={(e) => (updatedTags[t.id] = e.target.value)}
                 required
               />
