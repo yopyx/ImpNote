@@ -94,7 +94,7 @@ const NotesList = ({
           />
         </div>
       </div>
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap ml-1 gap-6">
         {filteredNotes.map((e) => (
           <Link key={e.id} to={`/${e.id}`}>
             <NoteCard title={e.title} tags={e.tags} />

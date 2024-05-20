@@ -47,6 +47,10 @@ function App() {
     const tagsIds = tags.map((t) => t.id);
     setNotes((prevNotes) => [...prevNotes, { id: uuidv4(), ...data, tagsIds }]);
   };
+  const copyNote = ({ tags, ...data }: NoteData) => {
+    const tagsIds = tags.map((t) => t.id);
+    setNotes((prevNotes) => [...prevNotes, { id: uuidv4(), ...data, tagsIds }]);
+  };
   const updateNote = (id: string, { tags, ...data }: NoteData) => {
     const tagsIds = tags.map((t) => t.id);
     setNotes((prevNotes) =>
@@ -107,7 +111,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <Note onDelete={deleteNote} />,
+          element: <Note onDelete={deleteNote} onCopy={copyNote} />,
         },
         {
           path: "edit",
