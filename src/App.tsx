@@ -133,7 +133,7 @@ function App() {
     },
   ]);
   return (
-    <div className="m-20 text-xl bg-gradient-to-r from-blue-100 to-blue-300">
+    <div className="m-20 xl:m-4 h-max place-content-center text-xl bg-gradient-to-r from-blue-100 to-blue-300">
       <RouterProvider router={router} />
     </div>
   );
