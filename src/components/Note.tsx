@@ -27,14 +27,14 @@ const Note = ({ onDelete, onCopy }: NoteProps) => {
             ))}
           </div>
         </div>
-        <div className="flex my-auto gap-x-5">
+        <div className="flex my-auto gap-x-5 md:gap-2 md:text-lg md:flex-col">
           <Link to={`/${note.id}/edit`}>
-            <button className="py-2 w-24 rounded-md text-white bg-blue-700 hover:bg-blue-800">
+            <button className="py-2.5 px-4 md:p-1.5 md:px-5 rounded-md text-white bg-blue-700 hover:bg-blue-800">
               Edit
             </button>
           </Link>
           <button
-            className="py-2 w-24 rounded-md bg-slate-200 border-stone-400 border-[1px] hover:bg-slate-300"
+            className="py-2.5 px-4 md:p-1.5 rounded-md bg-slate-200 border-stone-400 border-[1px] hover:bg-slate-300"
             onClick={() => {
               onCopy({
                 title: note.title,
@@ -51,12 +51,12 @@ const Note = ({ onDelete, onCopy }: NoteProps) => {
               onDelete(note.id);
               navigate("/");
             }}
-            className="py-2 w-24 text-red-600 rounded-md bg-red-100 border-red-600 border-[1px] hover:bg-red-300"
+            className="py-2.5 px-4 md:p-1.5 text-red-600 rounded-md bg-red-100 border-red-600 border-[1px] hover:bg-red-300"
           >
             Delete
           </button>
           <Link to={"/"}>
-            <button className="py-2 w-24 rounded-md bg-slate-200 border-stone-400 border-[1px] hover:bg-slate-300">
+            <button className="py-2.5 px-4 md:p-1.5 md:px-4 rounded-md bg-slate-200 border-stone-400 border-[1px] hover:bg-slate-300">
               Back
             </button>
           </Link>
