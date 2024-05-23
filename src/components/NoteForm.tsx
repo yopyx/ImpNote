@@ -32,8 +32,8 @@ const NoteForm = ({
   };
   return (
     <form className="flex flex-col gap-y-10" onSubmit={handleSubmission}>
-      <div className="flex gap-x-20">
-        <div className="flex-1 flex flex-col gap-y-4">
+      <div className="flex gap-x-[5%]">
+        <div className="w-[50%] flex flex-col gap-y-4">
           <label htmlFor="title" className=" font-semibold">
             Title
           </label>
@@ -45,7 +45,7 @@ const NoteForm = ({
             defaultValue={title}
           />
         </div>
-        <div className="flex flex-1 flex-col gap-y-4">
+        <div className="flex w-[50%] flex-col gap-y-4">
           <label htmlFor="tags" className="font-semibold">
             Tags
           </label>

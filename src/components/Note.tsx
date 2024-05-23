@@ -62,7 +62,9 @@ const Note = ({ onDelete, onCopy }: NoteProps) => {
           </Link>
         </div>
       </div>
-      <ReactMarkdown className="p-8">{note.markdown}</ReactMarkdown>
+      <ReactMarkdown className="p-2 rounded-lg border-2">
+        {note.markdown}
+      </ReactMarkdown>
     </div>
   );
 };
